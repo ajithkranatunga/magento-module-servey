@@ -1,1 +1,5 @@
 <div data-bind="html: window.checkoutConfig.isp_consent" style="color:red;"></div>
+<div data-bind="text: ispConsentFields">test</div>
+<div data-bind="if: window.checkoutConfig.isp_consent">
+    <p>show whatever ISP consent content</p>
+</div>

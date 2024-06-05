@@ -2,7 +2,8 @@ define([
         'uiComponent',
         'ko',
         'jquery',
-    ], function (Component, ko, $) {
+        'mage/url'
+    ], function (Component, ko, $, urlBuilder) {
         'use strict';
         return Component.extend({
             defaults: {
@@ -13,16 +14,28 @@ define([
                 var self = this;
                 this._super();
 
-                let customerIp = '';
+                console.log('Value '+window.checkoutConfig.isp_consent);
+                this.ispConsentFields = ko.observable('');
+                this.loadData();
+
+            },
+
+            loadData: function () {
+                let self = this;
+
+                let apiUrl = urlBuilder.build("rest/V1/ispdata");
 
                 $.ajax({
-                    url: 'https://dev.kemana.com/rest/V1/ispdata',
-                    showLoader: true,
-                    type: "GET",
+                    url: apiUrl,
+                    type: 'GET',
                     dataType : 'json',
-                    success: function(result){
+                    success: function (result) {
                         let data = JSON.parse(result);
-                        customerIp = data.isp;
+                        self.ispConsentFields(data.isp);
+                        console.log('provider is '+data.isp);
+                    },
+                    error: function (error) {
+                        console.error('AJAX Error:', error);
                     }
                 });
             }

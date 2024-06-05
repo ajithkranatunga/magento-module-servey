@@ -1,0 +1,14 @@
+{
+    "sales_order": {
+        "column": {
+            "is_satisfied": true,
+            "isp": true
+        }
+    },
+    "quote": {
+        "column": {
+            "is_satisfied": true,
+            "isp": true
+        }
+    }
+}

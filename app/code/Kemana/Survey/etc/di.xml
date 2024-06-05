@@ -3,4 +3,7 @@
         xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
     <preference for="Kemana\Survey\Api\IspApiInterface"
                 type="Kemana\Survey\Helper\IspApiService" />
+
+    <preference for="Kemana\Survey\Api\SalesOrderProcessInterface"
+                type="Kemana\Survey\Model\SalesOrderProcesser" />
 </config>

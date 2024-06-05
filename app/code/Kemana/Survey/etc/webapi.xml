@@ -14,4 +14,11 @@
             <resource ref="anonymous" />
         </resources>
     </route>
+
+    <route method="POST" url="/V1/orderdata/update">
+        <service class="Kemana\Survey\Api\SalesOrderProcessInterface" method="saveIspDataToQuoteTable" />
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
 </routes>

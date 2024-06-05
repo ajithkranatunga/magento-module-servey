@@ -65,6 +65,7 @@ class ConfigProvider
     {
         if ($this->customerSession->isLoggedIn()) {
             $customerData = $this->customerSession->getCustomerData();
+            die ($customerData->getCustomAttribute('allow_detect_isp'));
             return $customerData->getCustomAttribute('allow_detect_isp');
         }
         return false;
