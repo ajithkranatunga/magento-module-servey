@@ -1,0 +1,31 @@
+
+<?php
+/** @var \Magento\Framework\View\Element\Template $block */
+/** @var \Magento\Framework\Escaper $escaper */
+/** @var \Kemana\Survey\ViewModel\IspConsent $viewModel */
+
+$viewModel = $block->getViewModel();
+?>
+<div class="field allow-detect-isp">
+    <div class="control">
+        <?php
+        $validationClass = $escaper->escapeHtmlAttr(
+            $this->helper(\Magento\Customer\Helper\Address::class)
+                ->getAttributeValidationClass('allow_detect_isp')
+        )
+        ?>
+        <input type="checkbox"
+               name="allow_detect_isp"
+               id="allow_detect_isp"
+               value="<?= $escaper->escapeHtmlAttr($viewModel->getIspConsent()) ?>"
+                <?php if ($viewModel->getIspConsent()) { echo 'checked'; } ?>
+               title="<?= $escaper->escapeHtmlAttr(__('Allow to detect ISP')) ?>"
+               class="input-text <?= $validationClass ?: '' ?>"
+        >
+    </div>
+    <label for="allow_detect_isp" class="label">
+        <span>
+            <?= $escaper->escapeHtml(__('Allow to detect ISP')) ?>
+        </span>
+    </label>
+</div>
