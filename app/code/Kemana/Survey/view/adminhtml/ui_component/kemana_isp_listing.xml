@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">kemana_isp_listing.kemana_isp_listing_data_source</item>
+        </item>
+    </argument>
+    <settings>
+        <spinner>sales_order_columns</spinner>
+        <deps>
+            <dep>kemana_isp_listing.kemana_isp_listing_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="kemana_isp_listing_data_source" component="Magento_Ui/js/grid/provider">
+        <settings>
+            <updateUrl path="mui/index/render"/>
+        </settings>
+        <aclResource>Magento_Sales::sales_order</aclResource>
+        <dataProvider class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider" name="kemana_isp_listing_data_source">
+            <settings>
+                <requestFieldName>id</requestFieldName>
+                <primaryFieldName>main_table.entity_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <listingToolbar name="listing_top">
+        <settings>
+            <sticky>true</sticky>
+        </settings>
+        <bookmark name="bookmarks"/>
+        <columnsControls name="columns_controls"/>
+        <exportButton name="export_button"/>
+        <filterSearch name="fulltext"/>
+        <filters name="listing_filters">
+            <filterSelect name="store_id" provider="${ $.parentName }">
+                <settings>
+                    <options class="Magento\Store\Ui\Component\Listing\Column\Store\Options"/>
+                    <caption translate="true">All Store Views</caption>
+                    <label translate="true">Purchase Point</label>
+                    <dataScope>store_id</dataScope>
+                    <imports>
+                        <link name="visible">ns = ${ $.ns }, index = ${ $.index }:visible</link>
+                    </imports>
+                </settings>
+            </filterSelect>
+        </filters>
+        <paging name="listing_paging"/>
+    </listingToolbar>
+    <columns name="sales_order_columns">
+        <settings>
+            <childDefaults>
+                <param name="fieldAction" xsi:type="array">
+                    <item name="provider" xsi:type="string">kemana_isp_listing.kemana_isp_listing.kemana_isp_listing_data_source.actions</item>
+                    <item name="target" xsi:type="string">applyAction</item>
+                    <item name="params" xsi:type="array">
+                        <item name="0" xsi:type="string">view</item>
+                        <item name="1" xsi:type="string">${ $.$data.rowIndex }</item>
+                    </item>
+                </param>
+            </childDefaults>
+        </settings>
+        <selectionsColumn name="ids" component="Magento_Sales/js/grid/columns/multiselect">
+            <settings>
+                <indexField>entity_id</indexField>
+            </settings>
+        </selectionsColumn>
+        <column name="is_satisfied">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Is Satisfied</label>
+            </settings>
+        </column>
+        <column name="isp">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">ISP</label>
+                <visible>false</visible>
+            </settings>
+        </column>
+        <column name="isp_count">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">ISP Count</label>
+                <visible>false</visible>
+            </settings>
+        </column>
+        <column name="count">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Count</label>
+                <visible>false</visible>
+            </settings>
+        </column>
+    </columns>
+</listing>
