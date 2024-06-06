@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+
+    <route method="GET" url="/V1/ispdata">
+        <service class="Kemana\Survey\Api\IspApiInterface" method="getIspData" />
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+
+    <route method="POST" url="/V1/orderdata/update">
+        <service class="Kemana\Survey\Api\SalesOrderProcessInterface" method="saveIspDataToQuoteTable" />
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+        <!--<data>
+            <parameter name="cartId" force="true">%cart_id%</parameter>
+        </data>-->
+    </route>
+</routes>

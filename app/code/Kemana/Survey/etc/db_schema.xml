@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="sales_order">
+        <column xsi:type="int" name="is_satisfied" unsigned="true" nullable="true" identity="false"
+                comment="Is Satisfied with ISP"/>
+        <column xsi:type="varchar" name="isp" nullable="true" length="256" comment="ISP Name"/>
+    </table>
+    <table name="quote">
+        <column xsi:type="int" name="is_satisfied" unsigned="true" nullable="true" identity="false"
+                comment="Is Satisfied with ISP"/>
+        <column xsi:type="varchar" name="isp" nullable="true" length="256" comment="ISP Name"/>
+    </table>
+</schema>
