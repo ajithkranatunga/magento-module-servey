@@ -7,6 +7,8 @@ use Magento\Framework\Webapi\Rest\Request;
 use Magento\Quote\Model\QuoteIdMaskFactory;
 use Magento\Quote\Api\CartRepositoryInterface;
 use Magento\Customer\Model\SessionFactory;
+use Magento\Checkout\Model\Session as CheckoutSession;
+use Magento\Quote\Model\Quote;
 
 /**
  * Class SalesOrderProcesser
@@ -35,26 +37,31 @@ class SalesOrderProcesser implements SalesOrderProcessInterface
      */
     private $quote;
 
+    private $checkoutSession;
+
     /**
      * SalesOrderProcesser constructor.
      * @param Request $request
      * @param QuoteIdMaskFactory $quoteIdMaskFactory
      * @param CartRepositoryInterface $quoteRepository
      * @param SessionFactory $customerSession
-     * @param \Magento\Quote\Model\Quote $quote
+     * @param Quote $quote
+     * @param CheckoutSession $checkoutSession
      */
     public function __construct(
         Request $request,
         QuoteIdMaskFactory $quoteIdMaskFactory,
         CartRepositoryInterface $quoteRepository,
         SessionFactory $customerSession,
-        \Magento\Quote\Model\Quote $quote
+        Quote $quote,
+        CheckoutSession $checkoutSession
     ) {
         $this->request = $request;
         $this->quoteRepository = $quoteRepository;
         $this->quoteIdMaskFactory = $quoteIdMaskFactory;
         $this->customerSession = $customerSession->create();
         $this->quote = $quote;
+        $this->checkoutSession = $checkoutSession;
     }
 
     /**
@@ -66,8 +73,9 @@ class SalesOrderProcesser implements SalesOrderProcessInterface
     {
         $post = $this->request->getPostValue();
         if ($post) {
-            $cartId = $this->quote->getId();
-            //$cartId = 3;
+            $quote = $this->checkoutSession->getQuote();
+            $cartId = $quote->getId();
+            $cartId = 16;
             $isSatisfied = $post['is_satisfied'];
             $isp = $post['isp'];
             $loggin = $this->customerSession->isLoggedIn();

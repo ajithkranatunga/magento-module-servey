@@ -20,5 +20,8 @@
         <resources>
             <resource ref="anonymous" />
         </resources>
+        <!--<data>
+            <parameter name="cartId" force="true">%cart_id%</parameter>
+        </data>-->
     </route>
 </routes>

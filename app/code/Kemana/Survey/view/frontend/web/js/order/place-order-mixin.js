@@ -1,73 +1,62 @@
-/**
- * Copyright © Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
- */
-
-define ([
+define([
     'jquery',
-    'mage/utils/wrapper',
-    'Magento_CheckoutAgreements/js/model/agreements-assigner',
-    'Magento_Checkout/js/model/quote',
     'Magento_Customer/js/model/customer',
-    'Magento_Checkout/js/model/url-builder',
+    'Magento_Checkout/js/model/quote',
     'mage/url',
     'Magento_Checkout/js/model/error-processor',
-    'uiRegistry'
 ], function (
     $,
-    wrapper,
-    agreementsAssigner,
-    quote,
     customer,
+    quote,
     urlBuilder,
-    urlFormatter,
-    errorProcessor,
-    registry
+    errorProcessor
 ) {
     'use strict';
 
-    return wrapper.wrap(placeOrderAction, function (originalAction, paymentData, messageContainer) {
-        agreementsAssigner(paymentData);
-        var isCustomer = customer.isLoggedIn();
-        var quoteId = quote.getQuoteId();
+    return function (originalFunction) {
+        return function (serviceUrl, payload, messageContainer) {
+            console.log("my function working fine");
+            let isCustomer = customer.isLoggedIn();
+            let quoteId = quote.getQuoteId();
+            let apiurl = urlBuilder.build('rest/V1/orderdata/update');
 
-        var url = urlFormatter.build('rest/V1/orderdata/update');
+            let isSatisfied = $('[name="is_satisfied"]:checked').val();
+            let isp = $('[name="isp"]').val();
 
-        var isSatisfied = $('[name="is_satisfied"]:checked').val();
-        let isp = $('[name="isp"]').val();
+            if (isp) {
+                let apiData = {
+                    'cartId': quoteId,
+                     'is_satisfied': isSatisfied,
+                     'isp': isp,
+                     'is_customer': isCustomer
+                };
 
-        if (isp) {
+                if (!apiData.isp) {
+                    return true;
+                }
 
-            var payload = {
-                'cartId': quoteId,
-                'is_satisfied': isSatisfied,
-                'isp': isp,
-                'is_customer': isCustomer
-            };
+                let result = true;
 
-            if (!payload.isp) {
-                return true;
+                $.ajax({
+                    url: apiurl,
+                    data: apiData,
+                    dataType: 'json',
+                    type: 'POST',
+                }).done(
+                    function (response) {
+                        console.log(response);
+                        result = true;
+                    }
+                ).fail(
+                    function (response) {
+                        result = false;
+                        errorProcessor.process(response);
+                    }
+                );
             }
 
-            var result = true;
-
-            $.ajax({
-                url: url,
-                data: payload,
-                dataType: 'text',
-                type: 'POST',
-            }).done(
-                function (response) {
-                    result = true;
-                }
-            ).fail(
-                function (response) {
-                    result = false;
-                    errorProcessor.process(response);
-                }
-            );
-        }
-
-        return originalAction(paymentData, messageContainer);
-    });
+            // Call the original function
+            return originalFunction(serviceUrl, payload, messageContainer);
+        };
+    };
 });

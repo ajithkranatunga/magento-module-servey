@@ -14,14 +14,17 @@ define([
                 var self = this;
                 this._super();
 
-                console.log('Value '+window.checkoutConfig.isp_consent);
-                this.ispConsentFields = ko.observable('');
+                this.fieldISP = ko.observable('');
+                this.allow_detect_isp = ko.observable(false);
+
                 this.loadData();
 
             },
 
             loadData: function () {
                 let self = this;
+
+                self.allow_detect_isp = window.checkoutConfig.isp_consent;
 
                 let apiUrl = urlBuilder.build("rest/V1/ispdata");
 
@@ -31,8 +34,7 @@ define([
                     dataType : 'json',
                     success: function (result) {
                         let data = JSON.parse(result);
-                        self.ispConsentFields(data.isp);
-                        console.log('provider is '+data.isp);
+                        self.fieldISP(data.isp);
                     },
                     error: function (error) {
                         console.error('AJAX Error:', error);

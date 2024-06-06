@@ -48,13 +48,11 @@ class ConfigProvider
      */
     public function getConfig()
     {
-        if ($this->getIspConsentConfig()) {
-            return [
-                'isp_consent' => $this->_layout->createBlock('Magento\Framework\View\Element\Template')
-                    ->setTemplate("Kemana_Survey::checkout/isp-consent.phtml")->toHtml()
-            ];
+        $configVal = false;
+        if ($this->getIspConsentConfig()){
+            $configVal = true;
         }
-        return [];
+        return ['isp_consent' => $configVal];
     }
 
     /**
@@ -65,8 +63,7 @@ class ConfigProvider
     {
         if ($this->customerSession->isLoggedIn()) {
             $customerData = $this->customerSession->getCustomerData();
-            die ($customerData->getCustomAttribute('allow_detect_isp'));
-            return $customerData->getCustomAttribute('allow_detect_isp');
+            return $customerData->getCustomAttribute('allow_detect_isp')->getValue();
         }
         return false;
     }
