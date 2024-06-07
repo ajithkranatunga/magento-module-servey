@@ -70,9 +70,11 @@
                 <indexField>entity_id</indexField>
             </settings>
         </selectionsColumn>
-        <column name="is_satisfied">
+        <column name="is_satisfied" component="Magento_Ui/js/grid/columns/select" sortOrder="90">
             <settings>
-                <filter>text</filter>
+                <options class="Magento\Config\Model\Config\Source\Yesno"/>
+                <filter>select</filter>
+                <dataType>select</dataType>
                 <label translate="true">Is Satisfied</label>
             </settings>
         </column>
@@ -83,18 +85,12 @@
                 <visible>false</visible>
             </settings>
         </column>
+<!--        <column name="isp_count"  class="Kemana\Survey\Ui\Component\Listing\Column\Isp">-->
         <column name="isp_count">
             <settings>
                 <filter>text</filter>
-                <label translate="true">ISP Count</label>
-                <visible>false</visible>
-            </settings>
-        </column>
-        <column name="count">
-            <settings>
-                <filter>text</filter>
-                <label translate="true">Count</label>
-                <visible>false</visible>
+                <label translate="true">Number of Orders</label>
+                <visible>true</visible>
             </settings>
         </column>
     </columns>

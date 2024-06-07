@@ -34,15 +34,15 @@ class Collection extends SearchResult
         parent::_initSelect();
 
         $this->getSelect()
+            ->reset(\Zend_Db_Select::COLUMNS)
             ->columns([
                 'entity_id',
                 'isp',
                 'is_satisfied',
                 'isp_count' => new \Zend_Db_Expr('COUNT(`main_table`.`entity_id`)')
             ])
-            ->group('main_table.ispw')
+            ->group('main_table.isp')
             ->group('main_table.is_satisfied');
-
 
         return $this;
     }

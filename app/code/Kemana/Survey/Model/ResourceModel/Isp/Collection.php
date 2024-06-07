@@ -13,5 +13,5 @@ class Collection extends AbstractCollection
     {
         $this->_init(Isp::class, IspResource::class);
     }
-    
+
 }
