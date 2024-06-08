@@ -68,12 +68,11 @@
                 <visible>false</visible>
             </settings>
         </column>
-<!--        <column name="isp_count"  class="Kemana\Survey\Ui\Component\Listing\Column\Isp">-->
-        <column name="isp_count">
+        <column name="order_count" class="Kemana\Survey\Ui\Component\Listing\Column\Isp">
             <settings>
                 <filter>text</filter>
+                <dataType>text</dataType>
                 <label translate="true">Number of Orders</label>
-                <visible>true</visible>
             </settings>
         </column>
     </columns>
