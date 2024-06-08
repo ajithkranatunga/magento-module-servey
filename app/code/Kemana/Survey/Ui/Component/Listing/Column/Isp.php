@@ -67,12 +67,10 @@ class Isp extends Column
     {
         if (isset($dataSource['data']['items'])) {
             foreach ($dataSource['data']['items'] as & $item) {
-                //TODO: pass real value
-                $item['isp_count'] = "Custom Value";
-                $dataSource['data']['items'] = $item;
+                $item[$this->getData('name')] = $item['isp_count'];
             }
         }
-
         return $dataSource;
+
     }
 }
