@@ -12,7 +12,7 @@
         </item>
     </argument>
     <settings>
-        <spinner>sales_order_columns</spinner>
+        <spinner>isp_data_columns</spinner>
         <deps>
             <dep>kemana_isp_listing.kemana_isp_listing_data_source</dep>
         </deps>
@@ -52,24 +52,7 @@
         </filters>
         <paging name="listing_paging"/>
     </listingToolbar>
-    <columns name="sales_order_columns">
-        <settings>
-            <childDefaults>
-                <param name="fieldAction" xsi:type="array">
-                    <item name="provider" xsi:type="string">kemana_isp_listing.kemana_isp_listing.kemana_isp_listing_data_source.actions</item>
-                    <item name="target" xsi:type="string">applyAction</item>
-                    <item name="params" xsi:type="array">
-                        <item name="0" xsi:type="string">view</item>
-                        <item name="1" xsi:type="string">${ $.$data.rowIndex }</item>
-                    </item>
-                </param>
-            </childDefaults>
-        </settings>
-        <selectionsColumn name="ids" component="Magento_Sales/js/grid/columns/multiselect">
-            <settings>
-                <indexField>entity_id</indexField>
-            </settings>
-        </selectionsColumn>
+    <columns name="isp_data_columns">
         <column name="is_satisfied" component="Magento_Ui/js/grid/columns/select" sortOrder="90">
             <settings>
                 <options class="Magento\Config\Model\Config\Source\Yesno"/>

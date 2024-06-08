@@ -4,6 +4,10 @@ namespace Kemana\Survey\Helper;
 use Kemana\Survey\Api\IspApiInterface;
 use Magento\Framework\HTTP\Client\Curl;
 
+/**
+ * Class IspApiService
+ * @package Kemana\Survey\Helper
+ */
 class IspApiService implements IspApiInterface
 {
     const ISP_API_URL = "http://ip-api.com/json";

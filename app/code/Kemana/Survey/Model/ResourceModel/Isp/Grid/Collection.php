@@ -8,8 +8,22 @@ use Magento\Framework\Event\ManagerInterface as EventManager;
 use Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult;
 use Psr\Log\LoggerInterface as Logger;
 
+/**
+ * Class Collection
+ * @package Kemana\Survey\Model\ResourceModel\Isp\Grid
+ */
 class Collection extends SearchResult
 {
+    /**
+     * Collection constructor.
+     * @param EntityFactory $entityFactory
+     * @param Logger $logger
+     * @param FetchStrategy $fetchStrategy
+     * @param EventManager $eventManager
+     * @param string $mainTable
+     * @param string $resourceModel
+     * @throws \Magento\Framework\Exception\LocalizedException
+     */
     public function __construct(
         EntityFactory $entityFactory,
         Logger $logger,
@@ -29,6 +43,9 @@ class Collection extends SearchResult
         );
     }
 
+    /**
+     * @return $this|Collection|void
+     */
     protected function _initSelect()
     {
         parent::_initSelect();

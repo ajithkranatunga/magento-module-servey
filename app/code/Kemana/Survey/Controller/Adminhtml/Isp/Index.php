@@ -6,6 +6,10 @@ use Magento\Backend\App\Action;
 use Magento\Framework\App\ResponseInterface;
 use Magento\Framework\Controller\ResultFactory;
 
+/**
+ * Class Index
+ * @package Kemana\Survey\Controller\Adminhtml\Isp
+ */
 class Index extends Action
 {
     /**
@@ -13,12 +17,6 @@ class Index extends Action
      */
     public function execute()
     {
-//        $resultPage = $this->_initAction();
-//        $resultPage->getConfig()->getTitle()->prepend(__('ISP Data'));
-//        return $resultPage;
-        //return $this->resultFactory->create(ResultFactory::TYPE_PAGE);
-
-
         $resultPage = $this->resultFactory->create(ResultFactory::TYPE_PAGE);
         $resultPage->setActiveMenu('Magento_Sales::sales_order');
         $resultPage->addBreadcrumb(__('Sales'), __('Sales'));

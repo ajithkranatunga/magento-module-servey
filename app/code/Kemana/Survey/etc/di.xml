@@ -7,6 +7,9 @@
     <preference for="Kemana\Survey\Api\SalesOrderProcessInterface"
                 type="Kemana\Survey\Model\SalesOrderProcesser" />
 
+    <preference for="Kemana\Survey\Api\IspDataProcessInterface"
+                type="Kemana\Survey\Model\IspDataProcess" />
+
     <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
         <arguments>
             <argument name="collections" xsi:type="array">
