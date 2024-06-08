@@ -4,6 +4,10 @@ namespace Kemana\Survey\Model\Data;
 use Kemana\Survey\Api\Data\IspDataInterface;
 use Magento\Framework\Api\AbstractSimpleObject;
 
+/**
+ * Class IspData
+ * @package Kemana\Survey\Model\Data
+ */
 class IspData extends AbstractSimpleObject implements IspDataInterface
 {
     /**

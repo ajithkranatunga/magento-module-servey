@@ -18,14 +18,14 @@ define([
             console.log("my function working fine");
             let isCustomer = customer.isLoggedIn();
             let quoteId = quote.getQuoteId();
-            let apiurl = urlBuilder.build('rest/V1/orderdata/update');
+            let apiurl = urlBuilder.build('rest/V1/ispdata/:cartid');
 
             let isSatisfied = $('[name="is_satisfied"]:checked').val();
             let isp = $('[name="isp"]').val();
 
             if (isp) {
                 let apiData = {
-                    'cartId': quoteId,
+                     'cartid': quoteId,
                      'is_satisfied': isSatisfied,
                      'isp': isp,
                      'is_customer': isCustomer
@@ -41,7 +41,7 @@ define([
                     url: apiurl,
                     data: apiData,
                     dataType: 'json',
-                    type: 'POST',
+                    type: 'PUT',
                 }).done(
                     function (response) {
                         console.log(response);

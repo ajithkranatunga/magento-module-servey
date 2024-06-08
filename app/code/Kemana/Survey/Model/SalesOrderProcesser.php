@@ -65,34 +65,41 @@ class SalesOrderProcesser implements SalesOrderProcessInterface
     }
 
     /**
-     * @return mixed|void
+     * Saving ISP data in quote table
+     *
+     * @param int $cartid
+     * @return int|string|void
      * @throws NoSuchEntityException
-     * Saves isp & is_satisfied values into quote table
      */
-    public function saveIspDataToQuoteTable()
+    public function save($cartid)
     {
-        $post = $this->request->getPostValue();
+        $post = $this->request->getBodyParams();
+
         if ($post) {
-            $quote = $this->checkoutSession->getQuote();
-            $cartId = $quote->getId();
-            $cartId = 16;
             $isSatisfied = $post['is_satisfied'];
             $isp = $post['isp'];
-            $loggin = $this->customerSession->isLoggedIn();
+            $loggin = $post['is_customer'];
 
             if ($loggin === 'false') {
-                $cartId = $this->quoteIdMaskFactory->create()
-                    ->load($cartId, 'masked_id')->getQuoteId();
+                $cartid = $this->quoteIdMaskFactory->create()
+                    ->load($cartid, 'masked_id')->getQuoteId();
             }
 
-            $quote = $this->quoteRepository->getActive($cartId);
+            $quote = $this->quoteRepository->getActive($cartid);
+
             if (!$quote->getItemsCount()) {
-                throw new NoSuchEntityException(__('Cart %1 doesn\'t contain products', $cartId));
+                throw new NoSuchEntityException(__('Cart %1 doesn\'t contain products', $cartid));
             }
-
             $quote->setData('is_satisfied', $isSatisfied);
             $quote->setData('isp', $isp);
-            $this->quoteRepository->save($quote);
+
+            try {
+                $id = $this->quoteRepository->save($quote);
+            } catch (\Exception $e) {
+                throw new \Exception("data update was not success".$e->getMessage());
+            }
+
+            return $id;
         }
     }
 
